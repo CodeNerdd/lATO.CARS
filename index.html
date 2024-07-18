@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LATO.MEDIA</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            transition: background-color 0.3s ease;
+        }
+
+        .introduction {
+            background-image: url('Tesla-SpaceX-Model-R-1a.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            width: 100%;
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: background-image 0.3s ease;
+        }
+
+        .introduction h1 {
+            font-size: 3em;
+            color: #c0cbd8;
+        }
+
+        .introduction ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .introduction ul li {
+            color: #c0cbd8;
+            margin-bottom: 10px;
+        }
+
+        .search-area {
+            padding: 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            margin-bottom: 10px;
+            transition: border-color 0.3s ease, background-color 0.3s ease;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-gap: 20px;
+        }
+
+        .car-card {
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: box-shadow 0.3s ease, background-color 0.3s ease;
+        }
+
+        .car-card img {
+            max-width: 100%;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .car-card:hover {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            background-color: #f5f5f5;
+        }
+
+        .car-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .download-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .download-button:hover {
+            background-color: #0056b3;
+        }
+
+        .theme-switcher {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+            color: #c0cbd8;
+        }
+
+        .theme-switcher label {
+            cursor: pointer;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="introduction">
+        <h1>EXPLORE OUR CAR COLLECTION</h1>
+        <ul>
+            <li><strong>High-Quality Images of All Vehicles</strong></li>
+            <li><strong>Informative and Engaging Videos</strong></li>
+            <li><strong>Detailed Specifications and Features</strong></li>
+        </ul>
+    </div>
+
+    <div class="search-area">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search by brand or model...">
+        <div class="grid-container">
+            <!-- Car cards will be dynamically generated here -->
+        </div>
+    </div>
+
+    <div class="theme-switcher">
+        <label><input type="radio" name="theme" value="default" checked> Default</label>
+        <label><input type="radio" name="theme" value="dark"> Dark Mode</label>
+        <label><input type="radio" name="theme" value="dark-red"> Dark Red Mode</label>
+        <label><input type="radio" name="theme" value="navy-blue"> Navy Blue Mode</label>
+    </div>
+
+    <script>
+        // JavaScript for dynamic content generation, search functionality, and theme switcher
+        document.addEventListener('DOMContentLoaded', function() {
+            const cars = [
+                {
+                    brand: "Mercedes-Benz",
+                    model: "E-Class",
+                    description: "The Mercedes-Benz E-Class is a mid-size luxury sedan known for its comfort, technology, and sophisticated design.",
+                    imageUrl: "Mercedes-Benz E-Class.jpeg"
+                },
+                {
+                    brand: "Mercedes-Benz",
+                    model: "GLC",
+                    description: "The Mercedes-Benz GLC is a compact luxury SUV known for its elegance, versatility, and advanced features.",
+                    imageUrl: "Mercedes-Benz GLC.jpeg"
+                },
+                {
+                    brand: "Audi",
+                    model: "A4",
+                    description: "The Audi A4 is a compact luxury sedan known for its understated design, technology, and driving dynamics.",
+                    imageUrl: "Audi A4.jpeg"
+                },
+                {
+                    brand: "Audi",
+                    model: "Q5",
+                    description: "The Audi Q5 is a compact luxury SUV known for its stylish design, advanced technology, and versatile capabilities.",
+                    imageUrl: "Audi Q5.jpeg"
+                },
+                {
+                    brand: "BMW",
+                    model: "3 Series",
+                    description: "The BMW 3 Series is a compact luxury sedan known for its sporty driving dynamics, premium interior, and technological innovations.",
+                    imageUrl: "BMW 3 Series.jpeg"
+                },
+                {
+                    brand: "BMW",
+                    model: "X5",
+                    description: "The BMW X5 is a mid-size luxury SUV known for its blend of comfort, performance, and advanced technology.",
+                    imageUrl: "BMW X5.jpeg"
+                },
+                {
+                    brand: "Lexus",
+                    model: "ES",
+                    description: "The Lexus ES is a luxury mid-size sedan known for its smooth ride, spacious interior, and reliability.",
+                    imageUrl: "Lexus ES.jpeg"
+                },
+                {
+                    brand: "Lexus",
+                    model: "RX",
+                    description: "The Lexus RX is a luxury mid-size SUV known for its upscale cabin, smooth ride, and hybrid options.",
+                    imageUrl: "Lexus RX.jpeg"
+                },
+                {
+                    brand: "Land Rover",
+                    model: "Range Rover",
+                    description: "The Land Rover Range Rover is an iconic luxury SUV known for its off-road capability, opulent interior, and advanced technology.",
+                    imageUrl: "Land Rover Range Rover.jpeg"
+                },
+                {
+                    brand: "Land Rover",
+                    model: "Discovery",
+                    description: "The Land Rover Discovery is a versatile luxury SUV known for its rugged capability, spacious interior, and family-friendly features.",
+                    imageUrl: "Land Rover Discovery.jpeg"
+                },
+                {
+                    brand: "Tesla",
+                    model: "Model R",
+                    description: "The Tesla Model R is an electric concept car that showcases Tesla's vision for future mobility and sustainability.",
+                    imageUrl: "Tesla Model R.jpeg"
+                },
+                {
+                    brand: "Tesla",
+                    model: "Cybertruck",
+                    description: "The Tesla Cybertruck is an all-electric pickup truck known for its futuristic design, powerful performance, and durability.",
+                    imageUrl: "Tesla Cybertruck.jpeg"
+                },
+                {
+                    brand: "Porsche",
+                    model: "911",
+                    description: "The Porsche 911 is a legendary sports car known for its iconic design, precision engineering, and exhilarating performance.",
+                    imageUrl: "Porsche 911.jpeg"
+                },
+                {
+                    brand: "Porsche",
+                    model: "Taycan",
+                    description: "The Porsche Taycan is a high-performance electric car known for its cutting-edge technology and thrilling driving experience.",
+                    imageUrl: "Porsche Taycan.jpeg"
+                },
+                {
+                    brand: "Lamborghini",
+                    model: "Aventador",
+                    description: "The Lamborghini Aventador is an exotic supercar known for its striking design, breathtaking performance, and exclusivity.",
+                    imageUrl: "Lamborghini Aventador.jpeg"
+                },
+                {
+                    brand: "Lamborghini",
+                    model: "Urus",
+                    description: "The Lamborghini Urus is a luxury SUV known for its aggressive styling, powerful engine, and impressive handling.",
+                    imageUrl: "Lamborghini Urus.jpeg"
+                },
+                {
+                    brand: "Toyota",
+                    model: "Camry",
+                    description: "The Toyota Camry is a popular mid-size sedan known for its reliability, comfort, and fuel efficiency.",
+                    imageUrl: "Toyota Camry.jpeg"
+                },
+                {
+                    brand: "Toyota",
+                    model: "RAV4",
+                    description: "The Toyota RAV4 is a compact SUV known for its practicality, robust performance, and advanced safety features.",
+                    imageUrl: "Toyota RAV4.jpeg"
+                }
+            ];
+
+            const gridContainer = document.querySelector('.grid-container');
+            const searchInput = document.getElementById('searchInput');
+            const themeSwitcher = document.querySelectorAll('input[name="theme"]');
+
+            function displayCars(cars) {
+                gridContainer.innerHTML = '';
+
+                cars.forEach(car => {
+                    const card = document.createElement('div');
+                    card.classList.add('car-card');
+
+                    const image = document.createElement('img');
+                    image.src = car.imageUrl;
+                    image.alt = `${car.brand} ${car.model}`;
+                    image.addEventListener('click', () => {
+                        // Logic for image pop-up or enlargement (not implemented in this example)
+                        alert(`Clicked on ${car.brand} ${car.model}`);
+                    });
+
+                    const heading = document.createElement('h2');
+                    heading.textContent = `${car.brand} ${car.model}`;
+
+                    const description = document.createElement('p');
+                    description.textContent = car.description;
+
+                    const downloadButton = document.createElement('button');
+                    downloadButton.classList.add('download-button');
+                    downloadButton.innerHTML = '<i class="fa fa-download"></i> Download';
+                    downloadButton.addEventListener('click', () => {
+                        // Logic for downloading image (not implemented in this example)
+                        alert(`Downloading ${car.brand} ${car.model}`);
+                    });
+
+                    card.appendChild(image);
+                    card.appendChild(heading);
+                    card.appendChild(description);
+                    card.appendChild(downloadButton);
+
+                    gridContainer.appendChild(card);
+                });
+            }
+
+            displayCars(cars); // Initial display
+
+            // Search functionality
+            searchInput.addEventListener('input', function() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const filteredCars = cars.filter(car =>
+                    car.brand.toLowerCase().includes(searchTerm) || car.model.toLowerCase().includes(searchTerm)
+                );
+                displayCars(filteredCars);
+            });
+
+            // Theme switcher functionality
+            themeSwitcher.forEach(input => {
+                input.addEventListener('change', function() {
+                    switch (input.value) {
+                        case 'default':
+                            document.body.style.backgroundColor = '#f0f0f0';
+                            document.querySelector('.introduction').style.backgroundImage = "url('Tesla-SpaceX-Model-R-1a.jpg')";
+                            break;
+                        case 'dark':
+                            document.body.style.backgroundColor = '#333';
+                            document.querySelector('.introduction').style.backgroundImage = "url('Tesla-SpaceX-Model-R-1a.jpg')";
+                            break;
+                        case 'dark-red':
+                            document.body.style.backgroundColor = '#550000';
+                            document.querySelector('.introduction').style.backgroundImage = "url('Tesla-SpaceX-Model-R-1a.jpg')";
+                            break;
+                        case 'navy-blue':
+                            document.body.style.backgroundColor = '#001f3f';
+                            document.querySelector('.introduction').style.backgroundImage = "url('Tesla-SpaceX-Model-R-1a.jpg')";
+                            break;
+                        default:
+                            break;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
